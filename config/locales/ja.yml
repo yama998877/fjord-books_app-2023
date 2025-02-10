@@ -1,0 +1,30 @@
+ja:
+  app:
+    text:
+      list: '本の一覧'
+      new: '新しい本'
+      edit: '編集する本'
+    actions:
+      show: 'この本を表示'
+      new: '本の新規登録'
+      edit: 'この本を編集する'
+      back: '本の一覧に戻る'
+      destroy: 'この本を削除する'
+    messages:
+      success:
+        create: '登録しました'
+        update: '更新しました'
+        destroy: '削除しました'
+
+  helpers:
+    submit:
+      create: 'この本を登録する'
+      update: 'この本を更新する'
+
+  activerecord:
+    attributes:
+      book:
+        title: 'タイトル'
+        memo: 'メモ'
+        author: '著者'
+        picture: '本の画像'
