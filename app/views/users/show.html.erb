@@ -1,0 +1,31 @@
+
+<h2><%= t('.title', resource: User.model_name.human ) %></h2>
+
+<div class="show-item">
+  <div id="<%= @user %>">
+  <p>
+    <strong><%= User.human_attribute_name(:email) %>:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong><%= User.human_attribute_name(:postal_code) %>:</strong>
+    <%= @user.postal_code.insert(3, '-') unless @user.postal_code.nil? %>
+  </p>
+
+  <p>
+    <strong><%= User.human_attribute_name(:address) %>:</strong>
+    <%= @user.address %>
+  </p>
+
+  <p>
+    <strong><%= User.human_attribute_name(:self_introduction ) %>:</strong>
+    <%= simple_format(@user.self_introduction) %>
+  </p>
+
+<nav class="page-nav">
+  <% if current_user.email == @user.email %>
+  <%= link_to t('devise.registrations.edit.title', resource: User.model_name.human), edit_user_registration_path %> |
+  <% end %>
+  <%= link_to t('devise.shared.links.back'), :back %>
+</nav>
