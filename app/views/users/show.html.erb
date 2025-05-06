@@ -24,7 +24,7 @@
   </p>
 
 <nav class="page-nav">
-  <% if current_user.email == @user.email %>
+  <% if current_user == @user %>
   <%= link_to t('devise.registrations.edit.title', resource: User.model_name.human), edit_user_registration_path %> |
   <% end %>
   <%= link_to t('devise.shared.links.back'), :back %>
