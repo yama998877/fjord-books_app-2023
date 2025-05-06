@@ -20,10 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  def update
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[postal_code address self_introduction])
-    super
-  end
+  # def update
+  #   super
+  # end
 
   # DELETE /resource
   # def destroy
