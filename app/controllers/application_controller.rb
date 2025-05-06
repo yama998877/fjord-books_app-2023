@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action do
     I18n.locale = :ja
   end
@@ -14,5 +15,11 @@ class ApplicationController < ActionController::Base
   # ログアウト後、ログインページに移動
   def after_sign_out_path_for(_resource)
     new_user_session_path
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[postal_code address self_introduction])
   end
 end
