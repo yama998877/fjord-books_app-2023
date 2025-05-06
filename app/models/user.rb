@@ -6,5 +6,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   validates :postal_code, length: { is: 7 }, on: :update, allow_blank: true,
-                          format: { with: /\A[0-9]+\z/, message: 'は半角数字のみが使えます' }
+                          format: { with: /\A[0-9]+\z/ }
 end

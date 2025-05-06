@@ -2,6 +2,11 @@
 ja:
   activerecord:
     errors:
+      models:
+        user:
+          attributes:
+            postal_code:
+              invalid: は半角数字のみが使えます
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
