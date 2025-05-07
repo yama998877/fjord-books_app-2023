@@ -1,0 +1,26 @@
+ja:
+  users:
+    list: "%{resource}リスト"
+    show:
+      title: "%{resource}詳細"
+  user:
+    login: としてログインしています。
+    logout: ログアウト
+    edit: ログイン中の%{resource}の編集
+
+  activerecord:
+    attributes:
+      user:
+        postal_code: 郵便番号
+        address: 住所
+        self_introduction: 自己紹介
+
+# 生成した辞書ファイルになかったので追加
+    models:
+      user:
+        one: ユーザー
+
+  errors:
+    messages:
+      not_saved:
+        one: 1件のエラーが発生したため  %{resource} は保存されませんでした。
