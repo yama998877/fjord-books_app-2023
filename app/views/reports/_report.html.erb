@@ -1,17 +1,27 @@
 <div id="<%= dom_id report %>">
+
   <p>
-    <strong>Title:</strong>
+    <strong><%= Report.human_attribute_name(:title) %>:</strong>
     <%= report.title %>
   </p>
 
   <p>
-    <strong>Body:</strong>
-    <%= report.body %>
+    <strong><%= Report.human_attribute_name(:post_time) %>:</strong>
+    <%= report.created_at.strftime('%F %H:%M') %>
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= report.user_id %>
+    <strong><%= User.model_name.human %>:</strong>
+    <% unless report.user.name.strip.empty? %>
+      <%= report.user.name %>
+    <% else %>
+      <%= report.user.email %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong><%= Report.human_attribute_name(:body) %>:</strong>
+    <%= report.body %>
   </p>
 
 </div>
