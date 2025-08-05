@@ -7,16 +7,12 @@
 
   <p>
     <strong><%= Report.human_attribute_name(:post_time) %>:</strong>
-    <%= report.created_at.strftime('%F %H:%M') %>
+    <%= l(report.created_at, format: :long ) %>
   </p>
 
   <p>
     <strong><%= User.model_name.human %>:</strong>
-    <% unless report.user.name.strip.empty? %>
-      <%= report.user.name %>
-    <% else %>
-      <%= report.user.email %>
-    <% end %>
+    <%= name_or_email(report) %>
   </p>
 
   <p>
