@@ -12,3 +12,15 @@
   <br>
   <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), reports_path %>
 </nav>
+
+<div>
+  <%= render 'comments/list', commentable: @report, comment: @comment %>
+</div>
+
+<div>
+  <% if @comment.nil? %>
+    <%= render 'comments/form', commentable: @report, comment: @report.comments.build %>
+  <% else %>
+    <%= render 'comments/form', commentable: @commentable, comment: @comment %>
+  <% end %>
+</div>

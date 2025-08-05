@@ -217,3 +217,5 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+  comments:
+    add: コメントする
