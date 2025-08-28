@@ -1,0 +1,8 @@
+<%= form_with model: [commentable, comment], local: true do |f| %>
+  <%= render 'shared/form_error_messages', model: comment %>
+
+  <div>
+    <%= f.text_area :body, required: true %>
+    <%= f.submit t('comments.add') %>
+  </div>
+<% end %>

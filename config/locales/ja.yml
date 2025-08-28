@@ -102,6 +102,7 @@ ja:
       model_invalid: 'バリデーションに失敗しました: %{errors}'
       not_a_number: は数値で入力してください
       not_an_integer: は整数で入力してください
+      not_creator: この%{model}の作成者ではないので更新、削除はできません
       odd: は奇数にしてください
       other_than: は%{count}以外の値にしてください
       present: は入力しないでください
@@ -216,3 +217,5 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+  comments:
+    add: コメントする
