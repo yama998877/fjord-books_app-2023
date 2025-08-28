@@ -1,7 +1,7 @@
 <h2><%= t(Comment.model_name.human.downcase) %></h2>
 <% commentable.comments.each do |c| %>
   <% unless c.created_at.nil? %>
-    <p><hr><%= name_or_email(c) %> |
+    <p><hr><%= c.user.name_or_email %> |
     <%= Comment.human_attribute_name(:comment_time) %>[<%= l(c.created_at, format: :long) %>]<br>
     <strong>
       <%= t(Comment.model_name.human.downcase) %>:

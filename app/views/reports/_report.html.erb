@@ -12,7 +12,7 @@
 
   <p>
     <strong><%= User.model_name.human %>:</strong>
-    <%= name_or_email(report) %>
+    <%= report.user.name_or_email %>
   </p>
 
   <p>

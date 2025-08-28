@@ -1,15 +1,5 @@
 <%= form_with model: [commentable, comment], local: true do |f| %>
-  <% if comment.errors.any? %>
-    <div style="color: red">
-      <h2><%= t('views.common.validation_error', errors: i18n_error_count(comment.errors.count), name: Comment.model_name.human.downcase) %></h2>
-
-      <ul>
-        <% comment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_error_messages', model: comment %>
 
   <div>
     <%= f.text_area :body, required: true %>

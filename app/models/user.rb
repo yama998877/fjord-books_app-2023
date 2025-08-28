@@ -8,6 +8,10 @@ class User < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [150, 150]
   end
 
+  def name_or_email
+    name.presence || email
+  end
+
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
 end

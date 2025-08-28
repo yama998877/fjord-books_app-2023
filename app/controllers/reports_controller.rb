@@ -2,7 +2,7 @@
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
-  before_action :user_confirmation, only: %i[edit update destroy]
+  before_action :check_user_confirmation, only: %i[edit update destroy]
 
   # GET /reports
   def index
@@ -42,7 +42,7 @@ class ReportsController < ApplicationController
 
   # DELETE /reports/1
   def destroy
-    @report.destroy
+    @report.destroy!
 
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
   end
@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
-  def user_confirmation
+  def check_user_confirmation
     redirect_to report_url(@report), alert: t('errors.messages.not_creator', model: Report.model_name.human) unless @report.user == current_user
   end
 
