@@ -1,0 +1,9 @@
+<ul>
+  <p><%= t('shared.mention.message.link') unless @report.mentioned_report_ids == [] %></p>
+  <% @report.mentioned_report_ids.each do |repo_id| %>
+    <li><% repo = Report.find(repo_id) %>
+    [ <%= repo.user.name_or_email %> ]
+    <%= link_to "#{repo.title}", report_path(repo.id) %>
+    - <%= l( repo.created_on, format: :long ) %>
+  <% end %>
+</ul>

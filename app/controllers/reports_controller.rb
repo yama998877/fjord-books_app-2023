@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'uri'
+
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[edit update destroy]
 
@@ -21,6 +23,8 @@ class ReportsController < ApplicationController
   def create
     @report = current_user.reports.new(report_params)
 
+    str = @report.content
+    mention_url_check(@report, str)
     if @report.save
       redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
@@ -29,11 +33,15 @@ class ReportsController < ApplicationController
   end
 
   def update
-    if @report.update(report_params)
-      redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
-    else
-      render :edit, status: :unprocessable_entity
+    str = report_params[:content]
+    mention_url_check(@report, str)
+    ActiveRecord::Base.transaction do
+      @report.update!(report_params)
+      @report.mentioning_report_ids = mention_url_check(@report, str)
     end
+    redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
+  rescue ActiveRecord::RecordInvalid
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
@@ -50,5 +58,17 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:title, :content)
+  end
+
+  def mention_url_check(report, str)
+    check_url = 'http://localhost:3000/reports/'
+    report_url_check = URI.extract(str, ['http']).uniq.select { |url| url.start_with?(check_url) }
+    repo_ids = report_url_check.map { |url| url.gsub(check_url, '').to_i }
+    existing_ids = repo_ids.select { |repo_id| Report.find_by(id: repo_id) }
+
+    return existing_ids if Report.exists?(report.id)
+
+    existing_ids = existing_ids.map { |id| { mentioned_id: id } }
+    report.mentioning_relationships.build(existing_ids)
   end
 end
