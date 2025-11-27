@@ -20,4 +20,17 @@ class Report < ApplicationRecord
   def created_on
     created_at.to_date
   end
+
+  def mention_url_check(str)
+    mentioning_reports.destroy_all if mentioning_reports.exists?
+    check_url = 'http://localhost:3000/reports/'
+    report_url_check = URI.extract(str, ['http']).uniq.select { |url| url.start_with?(check_url) }
+
+    repo_ids = report_url_check.map { |url| url.gsub(check_url, '').to_i }
+    repo_ids.delete(id)
+
+    existing_ids = Report.where(id: repo_ids).pluck(:id)
+    existing_ids = existing_ids.map { |id| { mentioned_id: id } }
+    mentioning_relationships.build(existing_ids)
+  end
 end

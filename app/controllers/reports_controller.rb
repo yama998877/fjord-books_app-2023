@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
     @report = current_user.reports.new(report_params)
 
     str = @report.content
-    mention_url_check(@report, str)
+    @report.mention_url_check(str)
     if @report.save
       redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
@@ -34,10 +34,9 @@ class ReportsController < ApplicationController
 
   def update
     str = report_params[:content]
-    mention_url_check(@report, str)
     ActiveRecord::Base.transaction do
+      @report.mention_url_check(str)
       @report.update!(report_params)
-      @report.mentioning_report_ids = mention_url_check(@report, str)
     end
     redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
   rescue ActiveRecord::RecordInvalid
@@ -58,17 +57,5 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:title, :content)
-  end
-
-  def mention_url_check(report, str)
-    check_url = 'http://localhost:3000/reports/'
-    report_url_check = URI.extract(str, ['http']).uniq.select { |url| url.start_with?(check_url) }
-    repo_ids = report_url_check.map { |url| url.gsub(check_url, '').to_i }
-    existing_ids = repo_ids.select { |repo_id| Report.find_by(id: repo_id) }
-
-    return existing_ids if Report.exists?(report.id)
-
-    existing_ids = existing_ids.map { |id| { mentioned_id: id } }
-    report.mentioning_relationships.build(existing_ids)
   end
 end
