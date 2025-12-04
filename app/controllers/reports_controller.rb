@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'uri'
-
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[edit update destroy]
 
@@ -22,6 +20,7 @@ class ReportsController < ApplicationController
 
   def create
     @report = current_user.reports.new(report_params)
+
     if @report.save
       redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
