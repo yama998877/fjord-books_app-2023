@@ -212,6 +212,9 @@ ja:
       menu: メニュー
       sign_in_as: "%{user} としてログイン中"
   shared:
+    mention:
+      message: 
+        link: この日報は以下の日報からリンクされています
     comments:
       create: コメントする
       delete: 削除
