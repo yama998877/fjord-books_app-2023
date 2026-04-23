@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  title: MyString
-  content: MyText
+alice_report:
+  user: alice
+  title: 試作日報
+  content: http://localhost:3000/reports/298486374は参考になりました。http://localhost:3000/reports/298486374は参考になりました。http://localhost:3000/reports/2は参考になりました。
+  created_at: 2026/1/2T23:20:00+09:00
 
-two:
-  user: two
+bob_report:
+  user: bob
   title: MyString
   content: MyText
+  created_at: 2026/1/1
