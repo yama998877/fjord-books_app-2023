@@ -16,6 +16,8 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'check created_at' do
+    alice = reports(:alice_report)
+    alice.update!(created_at: '2026/1/2T23:20:00'.in_time_zone)
     click_link 'この日報を表示', match: :first
     assert_text '2026/01/02'
   end

@@ -9,18 +9,21 @@ class ReportTest < ActiveSupport::TestCase
 
     assert_equal true, report.editable?(user)
   end
+
   test '#created_on' do
     report = reports(:alice_report)
-    assert_equal report.created_at.to_date, report.created_on
+    report.created_at = '2026/1/2'.in_time_zone
+    assert_equal '2026/1/2'.to_date, report.created_on
   end
-  test '#save_mentions' do
-    user1 = users(:alice)
-    user2 = users(:bob)
-    report1 = user1.reports.create!(title: '日報', content: 'これからよろしくお願いします。')
-    report2 = user2.reports.create!(title: '日報', content: "http://localhost:3000/reports/#{report1.id}が参考になりました")
-    assert_equal [report1], report2.mentioning_reports
 
-    report2.update(title: '更新', content: '更新しました。')
-    assert_equal [], report2.reload.mentioning_reports
+  test '#save_mentions' do
+    alice = users(:alice)
+    bob = users(:bob)
+    alice_report = alice.reports.create!(title: '日報', content: 'これからよろしくお願いします。')
+    bob_report = bob.reports.create!(title: '日報', content: "http://localhost:3000/reports/#{alice_report.id}が参考になりました")
+    assert_equal [alice_report], bob_report.mentioning_reports
+
+    bob_report.update(title: '更新', content: '更新しました。')
+    assert_equal [], bob_report.reload.mentioning_reports
   end
 end
