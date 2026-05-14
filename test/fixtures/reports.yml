@@ -3,7 +3,7 @@
 alice_report:
   user: alice
   title: 試作日報
-  content: http://localhost:3000/reports/298486374は参考になりました。http://localhost:3000/reports/298486374は参考になりました。http://localhost:3000/reports/2は参考になりました。
+  content: 試作日報です。
 
 bob_report:
   user: bob
